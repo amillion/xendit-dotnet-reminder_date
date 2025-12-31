@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net5.0;netstandard2.0;netcoreapp3.1;net48</TargetFrameworks>
+		<TargetFrameworks>net9.0;netstandard2.0;netcoreapp3.1;net48</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Macross.Json.Extensions" Version="2.1.0-beta4" />
+		<PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
