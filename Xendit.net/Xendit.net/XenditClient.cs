@@ -9,6 +9,7 @@
     using Xendit.net.Model.LinkedAccountToken;
     using Xendit.net.Model.PaymentMethod;
     using Xendit.net.Model.RetailOutlet;
+    using Xendit.net.Model.Subscription;
     using Xendit.net.Model.VirtualAccount;
     using Xendit.net.Network;
 
@@ -28,6 +29,7 @@
             this.RetailOutlet = new RetailOutletClient(apiKey, requestClient, baseUrl);
             this.VirtualAccount = new VirtualAccountClient(apiKey, requestClient, baseUrl);
             this.VirtualAccountPayment = new VirtualAccountPaymentClient(apiKey, requestClient, baseUrl);
+            this.Subscription = new SubscriptionClient(apiKey, requestClient, baseUrl);
         }
 
         public BalanceClient Balance { get; private set; }
@@ -54,6 +56,8 @@
 
         public VirtualAccountPaymentClient VirtualAccountPayment { get; private set; }
 
+        public SubscriptionClient Subscription { get; private set; }
+
         public void SetApiKey(string apiKey)
         {
             this.Balance.ApiKey = apiKey;
@@ -68,6 +72,7 @@
             this.RetailOutlet.ApiKey = apiKey;
             this.VirtualAccount.ApiKey = apiKey;
             this.VirtualAccountPayment.ApiKey = apiKey;
+            this.Subscription.ApiKey = apiKey;
         }
 
         public void SetRequestClient(INetworkClient requestClient)
@@ -84,6 +89,7 @@
             this.RetailOutlet.RequestClient = requestClient;
             this.VirtualAccount.RequestClient = requestClient;
             this.VirtualAccountPayment.RequestClient = requestClient;
+            this.Subscription.RequestClient = requestClient;
         }
 
         public void SetBaseUrl(string baseUrl)
@@ -100,6 +106,7 @@
             this.RetailOutlet.BaseUrl = baseUrl;
             this.VirtualAccount.BaseUrl = baseUrl;
             this.VirtualAccountPayment.BaseUrl = baseUrl;
+            this.Subscription.BaseUrl = baseUrl;
         }
     }
 }
