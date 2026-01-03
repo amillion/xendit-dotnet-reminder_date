@@ -17,13 +17,7 @@ namespace Xendit.net.Model.Subscription
         /// Create a subscription (recurring plan).
         /// </summary>
         public async Task<SubscriptionResponse> Create(CreateSubscriptionParameter parameter, HeaderParameter? headers = null)
-        {
-            // Validate description length to match API limit
-            if (parameter.Description != null && parameter.Description.Length > 1000)
-            {
-                throw new System.ArgumentException("Description cannot be longer than 1000 characters", nameof(parameter.Description));
-            }
-
+        {            
             string url = "/recurring/plans";
             var client = this.requestClient ?? XenditConfiguration.RequestClient;
             return await client.Request<CreateSubscriptionParameter, SubscriptionResponse>(HttpMethod.Post, url, this.ApiKey, this.BaseUrl, parameter, headers);
@@ -52,11 +46,11 @@ namespace Xendit.net.Model.Subscription
         /// <summary>
         /// Get recurring cycles for a plan.
         /// </summary>
-        public async Task<SubscriptionCycle[]> GetCycles(string planId, HeaderParameter? headers = null)
+        public async Task<SubscriptionCycleList> GetCycles(string planId, HeaderParameter? headers = null)
         {
             string url = string.Format("{0}{1}{2}", "/recurring/plans/", planId, "/cycles");
             var client = this.requestClient ?? XenditConfiguration.RequestClient;
-            return await client.Request<SubscriptionCycle[]>(HttpMethod.Get, url, this.ApiKey, this.BaseUrl, headers);
+            return await client.Request<SubscriptionCycleList>(HttpMethod.Get, url, this.ApiKey, this.BaseUrl, headers);
         }
 
         /// <summary>

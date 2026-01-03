@@ -20,5 +20,6 @@ namespace Xendit.net.Enum
 
         [EnumMember(Value = "SUCCEEDED")]
         Succeeded,
+        Canceled,
     }
 }

@@ -26,7 +26,7 @@ namespace Xendit.net.Model.Subscription
         public static async Task<SubscriptionCycle[]> GetCycles(string planId, HeaderParameter? headers = null)
         {
             SubscriptionClient client = new SubscriptionClient();
-            return await client.GetCycles(planId, headers);
+            return (await client.GetCycles(planId, headers)).Data;
         }
 
         public static async Task<SubscriptionCycle> ForceAttempt(string planId, string cycleId, HeaderParameter? headers = null)

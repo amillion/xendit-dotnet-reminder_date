@@ -40,14 +40,32 @@
             {
                 response.EnsureSuccessStatusCode();
 
-                var responseBody = await response.Content.ReadAsStreamAsync();
+                // Read content as string so we can include it in error messages when deserialization fails
+                var responseBodyString = string.Empty;
+                if (response.Content != null)
+                {
+                    responseBodyString = await response.Content.ReadAsStringAsync();
+                }
 
-                var deserializedResponse = await JsonSerializer.DeserializeAsync<TResponse>(responseBody);
-                return deserializedResponse;
+                try
+                {
+                    var deserializedResponse = JsonSerializer.Deserialize<TResponse>(responseBodyString);
+                    return deserializedResponse;
+                }
+                catch (JsonException e)
+                {
+                    throw new ApiException($"Failed to deserialize response body: {e.Message}{Environment.NewLine}{responseBodyString}", response.StatusCode.ToString());
+                }
             }
             catch (HttpRequestException e)
             {
-                throw new ApiException(e.Message, response.StatusCode.ToString());
+                string responseBody = string.Empty;
+                if (response.Content != null)
+                {
+                    responseBody = await response.Content.ReadAsStringAsync();
+                }
+
+                throw new ApiException(e.Message + Environment.NewLine + responseBody, response.StatusCode.ToString());
             }
         }
 
